@@ -3,6 +3,9 @@
 #include "string"
 #include "values.h"
 
+using int32 = int;
+using FText = std::string;
+
 class FWordHandler {
 public:
     void GenerateNewWord();
@@ -13,7 +16,7 @@ public:
 
     bool AnalyseGuess();
 
-    int AnalyseWordContent(std::string Guess);
+    int32 AnalyseWordContent(std::string Guess);
 
     bool WroteYes();
 
@@ -22,8 +25,13 @@ public:
         return CurrentWord.length();
     }
 
+    int32 GetBulls() { return Bulls; }
+    int32 GetCows() { return Cows; }
+
 private:
-    std::string CurrentWord;
+    FText CurrentWord;
+    int32 Bulls;
+    int32 Cows;
     
 };
 

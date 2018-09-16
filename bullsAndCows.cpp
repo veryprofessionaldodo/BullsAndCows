@@ -1,8 +1,16 @@
 #include "bullsAndCows.h"
 
+using int32 = int;
+using FString = std::string;
+
+FBullsAndCows::FBullsAndCows() 
+{
+    Reset();
+}
+
 void FBullsAndCows::StartGame() 
 {
-      std::cout << "Boas maluco!\n" << "Vamos fazer cenas com palavras?\n"; 
+    std::cout << "Boas maluco!\n" << "Vamos fazer cenas com palavras?\n"; 
 }
 
 void FBullsAndCows::EndGame() 
@@ -13,13 +21,13 @@ void FBullsAndCows::EndGame()
 
 void FBullsAndCows::PrintIntro() 
 {
-    std::cout  << "A palavra tem " << WordHandlerInstance.GetWordLength() << " letras. Tenta adivinhar qual é!\n";
+    std::cout  << "A palavra tem " << WordHandlerInstance.GetWordLength() << " letras. " <<
+    "Tenta adivinhar qual é!\n";
 }
 
 void FBullsAndCows::PlayGame()
 {
     bool WantsToPlayAgain = false;
-
 
     do 
     {
@@ -27,9 +35,9 @@ void FBullsAndCows::PlayGame()
 
         PrintIntro( );
         
-        ResetLivesNumber();
+        Reset();
 
-        int result = -1;
+        int32 result = -1;
         while (result != CORRECT_GUESS && CurrentTriesRemaining > 0) 
         {
             result = DoGuess();
@@ -42,7 +50,7 @@ void FBullsAndCows::PlayGame()
 
 int FBullsAndCows::DoGuess() 
 {
-    std::string Guess;
+    FString Guess;
     int GuessCheck;
 
     do 
@@ -55,8 +63,15 @@ int FBullsAndCows::DoGuess()
     } while (GuessCheck != VALID_WORD);
 
     CurrentTriesRemaining--;
+
+    PrintGuessResult();
     
     return WordHandlerInstance.AnalyseWordContent(Guess);
+}
+
+void FBullsAndCows::PrintGuessResult() 
+{
+
 }
 
 void FBullsAndCows::PrintRemainingTries() 
@@ -76,8 +91,7 @@ bool FBullsAndCows::GameOver(int result)
     } else // No tries remaining
     {
         bool WantsToPlayAgain = false;
-        bool IsSameWord = false;
-
+       
         std::cout << "\n\nDeixa lá, da próxima consegues! Queres tentar de novo? (y/n) \n";
 
         WantsToPlayAgain = WordHandlerInstance.WroteYes();
@@ -95,7 +109,7 @@ bool FBullsAndCows::GameOver(int result)
 
 
 
-void FBullsAndCows::ResetLivesNumber() 
+void FBullsAndCows::Reset() 
 {
     CurrentTriesRemaining = MAX_TRIES;
 }

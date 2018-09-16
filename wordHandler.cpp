@@ -1,6 +1,6 @@
 #include "wordHandler.h"
 
-int FWordHandler::CheckIfValidWord(std::string Guess) 
+int32 FWordHandler::CheckIfValidWord(FText Guess) 
 {
     if (Guess.length() != CurrentWord.length()) 
     {
@@ -8,17 +8,30 @@ int FWordHandler::CheckIfValidWord(std::string Guess)
         return WRONG_NUM_LETTERS;
     }
 
+    for (int i = 0 ; i < Guess.length(); i++) 
+    {
+        for (int j = i + 1 ; j < Guess.length(); j++) 
+        {
+            if (Guess[i] == Guess[j]) 
+            {
+                std::cout << "\nNão é um isograma!";
+                return NOT_ISOGRAM;
+
+            }
+        }
+    }
+
     return VALID_WORD;
 }
 
-int FWordHandler::AnalyseWordContent(std::string Guess)
+int FWordHandler::AnalyseWordContent(FText Guess)
 {
     return INCORRECT_GUESS;
 }
 
 bool FWordHandler::WroteYes()
 {
-    std::string Answer;
+    FText Answer;
     
     std::getline(std::cin, Answer);
 

@@ -3,10 +3,13 @@
 #include "values.h"
 #include "wordHandler.h"
 
+using int32 = int;
 
 class FBullsAndCows 
 {
 public:
+    FBullsAndCows();
+
     void StartGame();
 
     void EndGame();
@@ -17,16 +20,17 @@ public:
 
     void GameLoop();
 
-    int DoGuess();
+    int32 DoGuess();
+
+    void PrintGuessResult();
 
     void PlayGame();
 
     bool GameOver(int result);
 
-    void ResetLivesNumber();
-
+    void Reset();
 
 private:
-    int CurrentTriesRemaining;
+    int32 CurrentTriesRemaining;
     FWordHandler WordHandlerInstance;
 };

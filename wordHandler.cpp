@@ -4,19 +4,18 @@ int32 FWordHandler::CheckIfValidWord(FText Guess)
 {
     if (Guess.length() != CurrentWord.length()) 
     {
-        std::cout << "\nA tua palavra não tem " << CurrentWord.length() << " letras... Tenta outra vez!\n";
+        std::cout << "\nYour word doesn't have " << CurrentWord.length() << " letters... Try again!\n";
         return WRONG_NUM_LETTERS;
     }
 
-    for (int i = 0 ; i < Guess.length(); i++) 
+    for (int i = 0 ; i < int(Guess.length()); i++) 
     {
-        for (int j = i + 1 ; j < Guess.length(); j++) 
+        for (int j = i + 1 ; j < int(Guess.length()); j++) 
         {
             if (Guess[i] == Guess[j]) 
             {
-                std::cout << "\nNão é um isograma!";
+                std::cout << "\nNot an Isogram! Please try again...\n";
                 return NOT_ISOGRAM;
-
             }
         }
     }
@@ -24,9 +23,38 @@ int32 FWordHandler::CheckIfValidWord(FText Guess)
     return VALID_WORD;
 }
 
-int FWordHandler::AnalyseWordContent(FText Guess)
+int32 FWordHandler::AnalyseWordContent(FText Guess)
 {
-    return INCORRECT_GUESS;
+    if (Guess != CurrentWord) {
+        int32 bulls = 0;
+        int32 cows = 0;
+
+        for (int i = 0 ; i < int(Guess.length()) ;i++) 
+        {
+            if (Guess[i] == CurrentWord[i])
+                bulls++;
+            else if (CheckForCow(Guess[i]))
+                cows++;
+
+        }
+
+        std::cout << "\nThere are " << bulls << " bulls and " << cows << " cows.\n";
+
+        return INCORRECT_GUESS;
+    }
+
+    return CORRECT_GUESS;
+}
+
+// Check if the word contains that letter in a different place
+bool FWordHandler::CheckForCow(char Letter)
+{
+    for (int i = 0; i < int(CurrentWord.length());i++) 
+    {
+        if (CurrentWord[i] == Letter)
+            return true;
+    }
+    return false;
 }
 
 bool FWordHandler::WroteYes()
@@ -35,7 +63,9 @@ bool FWordHandler::WroteYes()
     
     std::getline(std::cin, Answer);
 
-    return Answer[0] == 'y' || Answer == "yes" || Answer[0] == 'Y' || Answer == "Yes";
+    std::cout << Answer;
+
+    return Answer[0] == 'y' || Answer == "yes" || Answer[0] == 'Y' || Answer == "Yes" || Answer == "\n";
 }
 
 void FWordHandler::GenerateNewWord() {

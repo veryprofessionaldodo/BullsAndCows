@@ -20,6 +20,8 @@ public:
 
     bool WroteYes();
 
+    bool CheckForCow(char Letter);
+
     int GetWordLength() 
     {
         return CurrentWord.length();

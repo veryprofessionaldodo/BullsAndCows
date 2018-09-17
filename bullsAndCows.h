@@ -22,8 +22,6 @@ public:
 
     int32 DoGuess();
 
-    void PrintGuessResult();
-
     void PlayGame();
 
     bool GameOver(int result);

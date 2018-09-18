@@ -8,6 +8,8 @@ using FText = std::string;
 
 class FWordHandler {
 public:
+    void FillList();
+
     void GenerateNewWord();
 
     bool IsValidWord();
@@ -34,6 +36,8 @@ private:
     FText CurrentWord;
     int32 Bulls;
     int32 Cows;
+
+    
     
 };
 
